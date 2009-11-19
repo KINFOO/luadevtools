@@ -27,6 +27,7 @@ public class Suite extends TestSuite {
 
 	/**
 	 * Instantiates a new suite registering all {@link TestCase} of the plug-in.
+	 * 
 	 */
 	public Suite() {
 		super();
