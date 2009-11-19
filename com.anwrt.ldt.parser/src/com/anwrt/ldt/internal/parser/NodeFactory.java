@@ -33,6 +33,7 @@ import com.anwrt.ldt.parser.ast.expressions.Table;
 import com.anwrt.ldt.parser.ast.expressions.UnaryExpression;
 import com.anwrt.ldt.parser.ast.statements.Break;
 import com.anwrt.ldt.parser.ast.statements.Chunk;
+import com.anwrt.ldt.parser.ast.statements.ElseIf;
 import com.anwrt.ldt.parser.ast.statements.ForInPair;
 import com.anwrt.ldt.parser.ast.statements.ForNumeric;
 import com.anwrt.ldt.parser.ast.statements.If;
@@ -321,19 +322,50 @@ public class NodeFactory implements LuaExpressionConstants,
 		 * If statement
 		 */
 		case S_IF:
-			assert childCount < 4 : "Too many clauses for if statement: "
+			/*
+			 * We're dealing with a mutant statement. A regular `If has 3 child
+			 * nodes. Besides, it could have one more option for the "else"
+			 * part. Furthermore, "elseif" nodes could indefinitely follow an if
+			 * statement.
+			 */
+			assert childCount < 3 : "Not enough clauses for if statement: "
 					+ childCount;
 
 			// Extract if components
 			expression = (Expression) getNode(childNodes.get(0));
 			chunk = (Chunk) getNode(childNodes.get(1));
 
-			// In case there is an else clause
-			if (childCount > 3) {
-				altChunk = (Chunk) getNode(childNodes.get(2));
-				node = new If(start, end, expression, chunk, altChunk);
+			/*
+			 * Deal with the multiple "elseif" case
+			 */
+			if (childCount > 2) {
+
+				// `If node that can handle "elseif"
+				node = new ElseIf(start, end, expression, chunk);
+
+				/*
+				 * Elseif nodes goes by pair: Expression then Chunk.
+				 * That's why we'll use a range of 2.
+				 */
+				for (int pair = 3; pair < childCount - 1; pair += 2) {
+
+					// Cast Expression then Chunk
+					expression = (Expression) getNode(childNodes.get(pair));
+					chunk = (Chunk) getNode(childNodes.get(pair + 1));
+
+					// Append ElseIf nodes' expression and chunk
+					((ElseIf) (node)).addExpressionAndRelatedChunk(expression,
+							chunk);
+				}
+
+				// Append else chunk
+				if ((childCount % 2) == 1) {
+					altChunk = (Chunk) getNode(childNodes.get(childCount - 1));
+					((ElseIf) (node)).setAlternative(altChunk);
+				}
+
 			} else {
-				// Single chunk if
+				// Regular `If case
 				node = new If(start, end, expression, chunk);
 			}
 			break;
@@ -382,7 +414,7 @@ public class NodeFactory implements LuaExpressionConstants,
 				for (int parameter = 1; parameter < childCount; parameter++) {
 					expression = (Expression) getNode(childNodes.get(parameter));
 					args.addNode(expression);
-					
+
 					// Define parameter list position in code
 					if (parameter == 1) {
 						args.setStart(expression.matchStart());

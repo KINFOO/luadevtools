@@ -51,6 +51,10 @@ public class If extends Statement implements LuaStatementConstants, Index {
 		this.alternative = alternative;
 	}
 
+	public void setAlternative(Chunk alternative) {
+		this.alternative = alternative;
+	}
+
 	/**
 	 * Instantiates a new if.
 	 * 
