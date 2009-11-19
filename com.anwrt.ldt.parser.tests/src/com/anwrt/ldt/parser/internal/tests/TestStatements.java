@@ -108,6 +108,17 @@ public class TestStatements extends TestCase {
 	}
 
 	/**
+	 * Test if else.
+	 */
+	public void testIfElseIf() {
+
+		char[] source = "i = 0 if i == 0 then return i elseif i > 1 then return i-1 end"
+				.toCharArray();
+		module = new LuaSourceParser().parse(fileName, source, this.reporter);
+		assertFalse("If statement is not recognized.", module.isEmpty());
+	}
+
+	/**
 	 * Test local.
 	 */
 	public void testLocal() {
@@ -167,7 +178,7 @@ public class TestStatements extends TestCase {
 		char[] source = "set = 'up'".toCharArray();
 		module = new LuaSourceParser().parse(fileName, source, this.reporter);
 		assertFalse("Assignment is not recognized.", module.isEmpty());
-		
+
 		// Multiple assignment
 		source = "set, stand = 'up', 'up'".toCharArray();
 		module = new LuaSourceParser().parse(fileName, source, this.reporter);
