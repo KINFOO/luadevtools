@@ -6,6 +6,8 @@
  */
 package com.anwrt.ldt.parser.internal.tests;
 
+import java.util.Random;
+
 import junit.framework.TestCase;
 
 import org.eclipse.dltk.ast.declarations.ModuleDeclaration;
@@ -108,14 +110,35 @@ public class TestStatements extends TestCase {
 	}
 
 	/**
-	 * Test if else.
+	 * Test elseif.
 	 */
 	public void testIfElseIf() {
 
 		char[] source = "i = 0 if i == 0 then return i elseif i > 1 then return i-1 end"
 				.toCharArray();
 		module = new LuaSourceParser().parse(fileName, source, this.reporter);
-		assertFalse("If statement is not recognized.", module.isEmpty());
+		assertFalse("`elseif statement is not recognized.", module.isEmpty());
+	}
+
+	/**
+	 * Test several elseif.
+	 */
+	public void testSeveralIfElseIf() {
+
+		/*
+		 * Generate chain of else if of variable length
+		 */
+		Random gen = new Random(196540427);
+		int elseIfCount = gen.nextInt() % 20 + 1;
+		String elseIfChain = "";
+		for (int k = 0; k < elseIfCount; k++) {
+			elseIfChain += "elseif i > 1 then return i-1 ";
+		}
+		char[] source = ("i = 0 if i == 0 then return i " + elseIfChain + "end")
+				.toCharArray();
+		module = new LuaSourceParser().parse(fileName, source, this.reporter);
+		assertFalse(elseIfCount + " `elseifIf in a row are not handled.",
+				module.isEmpty());
 	}
 
 	/**
