@@ -347,7 +347,7 @@ public class NodeFactory implements LuaExpressionConstants,
 				 * Elseif nodes goes by pair: Expression then Chunk.
 				 * That's why we'll use a range of 2.
 				 */
-				for (int pair = 3; pair < childCount - 1; pair += 2) {
+				for (int pair = 2; pair < childCount - 1; pair += 2) {
 
 					// Cast Expression then Chunk
 					expression = (Expression) getNode(childNodes.get(pair));
