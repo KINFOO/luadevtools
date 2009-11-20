@@ -14,8 +14,6 @@ import org.eclipse.dltk.ast.expressions.CallExpression;
 import com.anwrt.ldt.internal.parser.Index;
 import com.anwrt.ldt.parser.LuaExpressionConstants;
 
-;
-
 // TODO: Auto-generated Javadoc
 /**
  * The Class Call.

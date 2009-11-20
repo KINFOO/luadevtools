@@ -6,20 +6,18 @@
  */
 package com.anwrt.ldt.parser.ast.expressions;
 
-import org.eclipse.dltk.ast.expressions.Literal;
-
-import com.anwrt.ldt.parser.LuaExpressionConstants;
+import org.eclipse.dltk.ast.expressions.FloatNumericLiteral;
 
 import com.anwrt.ldt.internal.parser.Index;
+import com.anwrt.ldt.parser.LuaExpressionConstants;
 
 // TODO: Auto-generated Javadoc
 /**
  * The Class Number.
  */
-public class Number extends Literal implements LuaExpressionConstants, Index {
+public class Number extends FloatNumericLiteral implements
+		LuaExpressionConstants, Index {
 
-	/** Number's value. */
-	private Double fNumberValue;
 	private long id;
 
 	/**
@@ -33,8 +31,7 @@ public class Number extends Literal implements LuaExpressionConstants, Index {
 	 *            the value
 	 */
 	public Number(int start, int end, double value) {
-		super(start, end);
-		fNumberValue = value;
+		super(start, end, value);
 	}
 
 	/*
@@ -62,14 +59,5 @@ public class Number extends Literal implements LuaExpressionConstants, Index {
 	 */
 	public java.lang.String getValue() {
 		return this.toString();
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.dltk.ast.expressions.Literal#toString()
-	 */
-	public java.lang.String toString() {
-		return fNumberValue.toString();
 	}
 }
