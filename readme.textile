@@ -1,0 +1,10 @@
+h1(1). luadevtools
+
+The aim of this project is to facilitate Lua coding. For the moment, its just an editor going along with syntax highlight and outline. Code foldind and auto completion are on their way.
+
+h2. Requirements
+
+As far as I remember:
+* "Eclipse 3.5":http://www.eclipse.org/downloads/
+* "DLTK":http://download.eclipse.org/technology/dltk/downloads/
+
