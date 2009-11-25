@@ -14,30 +14,30 @@ import org.eclipse.dltk.ast.declarations.ModuleDeclaration;
  */
 public class LuaModuleDeclaration extends ModuleDeclaration {
 
-    /**
-     * Instantiates a new lua module declaration.
-     * 
-     * @param sourceLength
-     *            the source length
-     */
-    public LuaModuleDeclaration(int sourceLength) {
-	super(sourceLength);
-    }
+	/**
+	 * Instantiates a new lua module declaration.
+	 * 
+	 * @param sourceLength
+	 *            the source length
+	 */
+	public LuaModuleDeclaration(int sourceLength) {
+		super(sourceLength);
+	}
 
-    /**
-     * Instantiates a new lua module declaration.
-     * 
-     * @param length
-     *            the length
-     * @param rebuild
-     *            the rebuild
-     */
-    public LuaModuleDeclaration(int length, boolean rebuild) {
-	super(length, rebuild);
-    }
+	/**
+	 * Instantiates a new lua module declaration.
+	 * 
+	 * @param length
+	 *            the length
+	 * @param rebuild
+	 *            the rebuild
+	 */
+	public LuaModuleDeclaration(int length, boolean rebuild) {
+		super(length, rebuild);
+	}
 
-    @Override
-    public boolean equals(Object o) {
-	return o instanceof LuaModuleDeclaration;
-    }
+	@Override
+	public boolean equals(Object o) {
+		return o instanceof LuaModuleDeclaration;
+	}
 }

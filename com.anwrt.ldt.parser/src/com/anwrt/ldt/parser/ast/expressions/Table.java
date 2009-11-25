@@ -13,24 +13,25 @@ import org.eclipse.dltk.ast.ASTVisitor;
 import org.eclipse.dltk.ast.expressions.Expression;
 import org.eclipse.dltk.ast.statements.Statement;
 
-import com.anwrt.ldt.internal.parser.Index;
 import com.anwrt.ldt.parser.LuaExpressionConstants;
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class Table.
  */
-public class Table extends Expression implements Index{
-	
+public class Table extends Expression {
+
 	/** The statements. */
 	List<Statement> statements;
-	private long id;
 
 	/**
 	 * Instantiates a new table.
 	 * 
-	 * @param start the start
-	 * @param end the end
-	 * @param statements the statements
+	 * @param start
+	 *            the start
+	 * @param end
+	 *            the end
+	 * @param statements
+	 *            the statements
 	 */
 	public Table(int start, int end, List<Statement> statements) {
 		super(start, end);
@@ -40,23 +41,28 @@ public class Table extends Expression implements Index{
 	/**
 	 * Instantiates a new table.
 	 * 
-	 * @param start the start
-	 * @param end the end
+	 * @param start
+	 *            the start
+	 * @param end
+	 *            the end
 	 */
 	public Table(int start, int end) {
-		this(start, end, new ArrayList<Statement>() );
+		this(start, end, new ArrayList<Statement>());
 	}
-	
+
 	/**
 	 * Adds the statement.
 	 * 
-	 * @param statement the statement
+	 * @param statement
+	 *            the statement
 	 */
-	public void addStatement(Statement statement){
+	public void addStatement(Statement statement) {
 		statements.add(statement);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.eclipse.dltk.ast.statements.Statement#getKind()
 	 */
 	@Override
@@ -64,8 +70,12 @@ public class Table extends Expression implements Index{
 		return LuaExpressionConstants.E_TABLE;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.eclipse.dltk.ast.statements.Statement#traverse(org.eclipse.dltk.ast.ASTVisitor)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.dltk.ast.statements.Statement#traverse(org.eclipse.dltk.ast
+	 * .ASTVisitor)
 	 */
 	public void traverse(ASTVisitor pVisitor) throws Exception {
 		if (pVisitor.visit(this)) {
@@ -74,15 +84,5 @@ public class Table extends Expression implements Index{
 			}
 			pVisitor.endvisit(this);
 		}
-	}
-
-	@Override
-	public long getID() {
-		return id;
-	}
-
-	@Override
-	public void setID(long id) {
-		this.id = id;
 	}
 }

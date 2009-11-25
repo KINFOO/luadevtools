@@ -8,7 +8,6 @@ package com.anwrt.ldt.parser.ast.expressions;
 
 import org.eclipse.dltk.ast.expressions.FloatNumericLiteral;
 
-import com.anwrt.ldt.internal.parser.Index;
 import com.anwrt.ldt.parser.LuaExpressionConstants;
 
 // TODO: Auto-generated Javadoc
@@ -16,9 +15,7 @@ import com.anwrt.ldt.parser.LuaExpressionConstants;
  * The Class Number.
  */
 public class Number extends FloatNumericLiteral implements
-		LuaExpressionConstants, Index {
-
-	private long id;
+		LuaExpressionConstants {
 
 	/**
 	 * Instantiates a new number.
@@ -42,14 +39,6 @@ public class Number extends FloatNumericLiteral implements
 	@Override
 	public int getKind() {
 		return NUMBER_LITERAL;
-	}
-
-	public long getID() {
-		return id;
-	}
-
-	public void setID(long id) {
-		this.id = id;
 	}
 
 	/*

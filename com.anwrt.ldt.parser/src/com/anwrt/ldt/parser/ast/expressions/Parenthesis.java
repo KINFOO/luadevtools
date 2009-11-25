@@ -10,7 +10,6 @@ import org.eclipse.dltk.ast.expressions.Expression;
 
 import com.anwrt.ldt.parser.LuaExpressionConstants;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class Parenthesis.
  */

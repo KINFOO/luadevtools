@@ -8,9 +8,6 @@ package com.anwrt.ldt.parser.ast.expressions;
 
 import org.eclipse.dltk.ast.expressions.ExpressionConstants;
 import org.eclipse.dltk.ast.expressions.Literal;
-import java.lang.String;
-
-import com.anwrt.ldt.internal.parser.Index;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -18,9 +15,8 @@ import com.anwrt.ldt.internal.parser.Index;
  * 
  * @author kkinfoo
  */
-public class Identifier extends Literal implements LeftHandSide, Index {
+public class Identifier extends Literal implements LeftHandSide{
 
-	private long id;
 
 	/**
 	 * Instantiates a new identifier.
@@ -32,7 +28,7 @@ public class Identifier extends Literal implements LeftHandSide, Index {
 	 * @param value
 	 *            the value
 	 */
-	public Identifier(int start, int end, String value) {
+	public Identifier(int start, int end, java.lang.String value) {
 		super(start, end);
 		fLiteralValue = value;
 	}
@@ -55,7 +51,7 @@ public class Identifier extends Literal implements LeftHandSide, Index {
 	 * @param value
 	 *            the value
 	 */
-	public Identifier(String value) {
+	public Identifier(java.lang.String value) {
 		this(0, 0, value);
 	}
 
@@ -67,14 +63,6 @@ public class Identifier extends Literal implements LeftHandSide, Index {
 	@Override
 	public int getKind() {
 		return ExpressionConstants.E_IDENTIFIER;
-	}
-
-	public long getID() {
-		return id;
-	}
-
-	public void setID(long id) {
-		this.id = id;
 	}
 
 	/*
@@ -92,7 +80,7 @@ public class Identifier extends Literal implements LeftHandSide, Index {
 	 * 
 	 * @see org.eclipse.dltk.ast.expressions.Literal#toString()
 	 */
-	public String toString() {
+	public java.lang.String toString() {
 		return fLiteralValue;
 	}
 

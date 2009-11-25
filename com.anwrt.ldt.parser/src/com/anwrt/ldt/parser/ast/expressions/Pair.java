@@ -14,33 +14,32 @@ import com.anwrt.ldt.internal.parser.NameFinder;
 import com.anwrt.ldt.parser.LuaExpressionConstants;
 import com.anwrt.ldt.parser.ast.statements.FunctionDeclaration;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class Pair.
  */
 public class Pair extends BinaryExpression {
 
-    /**
-     * Instantiates a new pair.
-     * 
-     * @param start
-     *            the start
-     * @param end
-     *            the end
-     * @param left
-     *            the left
-     * @param right
-     *            the right
-     */
-    public Pair(int start, int end, Statement left, Statement right) {
-	super(start, end, left, LuaExpressionConstants.E_PAIR, right);
-	if (right instanceof Function) {
-	    SimpleReference ref = NameFinder.getReference((Expression) left);
-	    FunctionDeclaration declaration = new FunctionDeclaration(ref
-		    .getName(), ref.matchStart()-1, ref.matchStart()
-		    + ref.matchLength(), right.matchStart(), right.matchStart()
-		    + ref.matchLength());
-	    ((Function) right).addStatement(declaration);
+	/**
+	 * Instantiates a new pair.
+	 * 
+	 * @param start
+	 *            the start
+	 * @param end
+	 *            the end
+	 * @param left
+	 *            the left
+	 * @param right
+	 *            the right
+	 */
+	public Pair(int start, int end, Statement left, Statement right) {
+		super(start, end, left, LuaExpressionConstants.E_PAIR, right);
+		if (right instanceof Function) {
+			SimpleReference ref = NameFinder.getReference((Expression) left);
+			FunctionDeclaration declaration = new FunctionDeclaration(ref
+					.getName(), ref.matchStart() - 1, ref.matchStart()
+					+ ref.matchLength(), right.matchStart(), right.matchStart()
+					+ ref.matchLength());
+			((Function) right).addStatement(declaration);
+		}
 	}
-    }
 }

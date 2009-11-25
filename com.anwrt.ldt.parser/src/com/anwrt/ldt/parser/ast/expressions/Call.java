@@ -11,16 +11,14 @@ import org.eclipse.dltk.ast.ASTVisitor;
 import org.eclipse.dltk.ast.expressions.CallArgumentsList;
 import org.eclipse.dltk.ast.expressions.CallExpression;
 
-import com.anwrt.ldt.internal.parser.Index;
 import com.anwrt.ldt.parser.LuaExpressionConstants;
 
 /**
  * The Class Call.
  */
 public class Call extends CallExpression implements
-		LuaExpressionConstants, Index {
+		LuaExpressionConstants{
 
-	private long id;
 
 	private static ASTNode receiver(int start, int end) {
 		ASTNode node = new ASTNode() {
@@ -80,14 +78,6 @@ public class Call extends CallExpression implements
 			super.traverse(visitor);
 			visitor.endvisit(this);
 		}
-	}
-
-	public long getID() {
-		return id;
-	}
-
-	public void setID(long id) {
-		this.id = id;
 	}
 
 }
