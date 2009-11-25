@@ -464,16 +464,6 @@ public class NodeFactory implements LuaExpressionConstants,
 			node = new Dots(start, end);
 			break;
 		}
-		/*
-		 * Index node
-		 */
-		// Type check
-		com.anwrt.ldt.internal.parser.Index nodeToIndex;
-		nodeToIndex = (com.anwrt.ldt.internal.parser.Index) node;
-		boolean defined = node != null
-				&& node instanceof com.anwrt.ldt.internal.parser.Index;
-		assert defined : "Null return. Node type: " + kindOfNode;
-		nodeToIndex.setID(id);
 		return node;
 	}
 
