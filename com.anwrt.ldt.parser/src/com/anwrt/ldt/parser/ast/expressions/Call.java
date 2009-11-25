@@ -14,11 +14,10 @@ import org.eclipse.dltk.ast.expressions.CallExpression;
 import com.anwrt.ldt.internal.parser.Index;
 import com.anwrt.ldt.parser.LuaExpressionConstants;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class Call.
  */
-public class Call extends CallExpression/* Expression */implements
+public class Call extends CallExpression implements
 		LuaExpressionConstants, Index {
 
 	private long id;
