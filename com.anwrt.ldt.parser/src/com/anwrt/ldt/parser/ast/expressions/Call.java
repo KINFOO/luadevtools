@@ -6,35 +6,17 @@
  */
 package com.anwrt.ldt.parser.ast.expressions;
 
-import org.eclipse.dltk.ast.ASTNode;
 import org.eclipse.dltk.ast.ASTVisitor;
 import org.eclipse.dltk.ast.expressions.CallArgumentsList;
 import org.eclipse.dltk.ast.expressions.CallExpression;
+import org.eclipse.dltk.ast.expressions.Expression;
 
 import com.anwrt.ldt.parser.LuaExpressionConstants;
 
 /**
  * The Class Call.
  */
-public class Call extends CallExpression implements
-		LuaExpressionConstants{
-
-
-	private static ASTNode receiver(int start, int end) {
-		ASTNode node = new ASTNode() {
-
-			@Override
-			public void traverse(ASTVisitor visitor) throws Exception {
-				if (visitor.visit(this)) {
-					visitor.endvisit(this);
-				}
-			}
-		};
-		node.setStart(start);
-		node.setEnd(end);
-		return node;
-	}
-
+public class Call extends CallExpression implements LuaExpressionConstants {
 	/**
 	 * Instantiates a new call.
 	 * 
@@ -48,12 +30,58 @@ public class Call extends CallExpression implements
 	 *            the params
 	 */
 	public Call(int start, int end, Identifier name, CallArgumentsList args) {
-		super(start, end, receiver(start, end), name.getValue(), args);
+		super(start, end, name, name.getValue(), args);
 	}
 
 	public Call(int start, int end, Identifier name) {
-		super(start, end, receiver(start, end), name.getValue(),
+		super(start, end, name, name.getValue(), new CallArgumentsList(start,
+				end));
+	}
+
+	public Call(int start, int end, Index name) {
+		super(start, end, name, extractNameFromIndex(name),
 				new CallArgumentsList(start, end));
+	}
+
+	public Call(int start, int end, Index name, CallArgumentsList args) {
+		super(start, end, name, extractNameFromIndex(name), args);
+	}
+
+	public Call(int start, int end, Expression name) {
+		super(start, end, name, extractNameFromIndex(name),
+				new CallArgumentsList(start, end));
+	}
+
+	public Call(int start, int end, Expression name, CallArgumentsList args) {
+		super(start, end, name, extractNameFromIndex(name), args);
+	}
+
+	/**
+	 * extracting Key of index
+	 */
+	private static java.lang.String extractNameFromIndex(Expression expr) {
+
+		java.lang.String name;
+		Index index;
+		if (expr instanceof Index) {
+			index = (Index) expr;
+			Identifier id;
+			if (index.getKey() instanceof Identifier) {
+				id = (Identifier) index.getKey();
+				name = id.getValue() + ".";
+			} else {
+				name = index.getKey() + ".";
+			}
+			if (index.getValue() instanceof Identifier) {
+				id = (Identifier) index.getValue();
+				name += id.getValue();
+			} else {
+				name += index.getValue();
+			}
+		} else {
+			name = expr.toString();
+		}
+		return name;
 	}
 
 	/*

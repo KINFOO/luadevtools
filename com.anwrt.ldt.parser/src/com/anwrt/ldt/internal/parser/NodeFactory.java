@@ -406,7 +406,7 @@ public class NodeFactory implements LuaExpressionConstants,
 		case E_CALL:
 			// Allocate function with its name
 			assert childCount > 0 : "No name given for function call.";
-			altExpression = (Identifier) getNode(childNodes.get(0));
+			altExpression = (Expression) getNode(childNodes.get(0));
 
 			// Append parameters for call
 			if (childCount > 1) {
@@ -424,9 +424,9 @@ public class NodeFactory implements LuaExpressionConstants,
 					}
 				}
 
-				node = new Call(start, end, (Identifier) altExpression, args);
+				node = new Call(start, end, altExpression, args);
 			} else {
-				node = new Call(start, end, (Identifier) altExpression);
+				node = new Call(start, end, altExpression);
 			}
 			break;
 		/*

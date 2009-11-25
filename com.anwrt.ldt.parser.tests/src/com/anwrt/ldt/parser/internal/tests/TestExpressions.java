@@ -77,6 +77,15 @@ public class TestExpressions extends TestCase {
 		module = new LuaSourceParser().parse(fileName, source, this.reporter);
 		assertFalse("Call to function with parameters is not recognized.",
 				module.isEmpty());
+
+		/*
+		 * Testing call through index
+		 * `Call{ `Index{ `Id "table", `String "method" }, `Id "param" }
+		 */
+		source = "table.method( param )".toCharArray();
+		module = new LuaSourceParser().parse(fileName, source, this.reporter);
+		assertFalse("Call to function with parameters is not recognized.",
+				module.isEmpty());
 	}
 
 	/**
@@ -112,6 +121,16 @@ public class TestExpressions extends TestCase {
 		source = "module = {} module.field= 2".toCharArray();
 		module = new LuaSourceParser().parse(fileName, source, this.reporter);
 		assertFalse("Field-like index is not handled.", module.isEmpty());
+	}
+
+	/**
+	 * Test invocation.
+	 */
+	public void testInvoke() {
+
+		char[] source = "out:close()".toCharArray();
+		module = new LuaSourceParser().parse(fileName, source, this.reporter);
+		assertFalse("Ivocation is not handled.", module.isEmpty());
 	}
 
 	/**

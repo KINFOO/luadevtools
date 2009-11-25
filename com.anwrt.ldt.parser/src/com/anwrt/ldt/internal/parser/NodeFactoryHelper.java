@@ -305,7 +305,7 @@ public class NodeFactoryHelper implements LuaExpressionConstants,
 		state.getGlobal("hasLineInfo");
 		state.pushNumber((double) id);
 		state.call(1, 1);
-		assert state.isBoolean(-1) : "Boolean sould be on top of stack";
+		assert state.isBoolean(-1) : "Boolean should be on top of stack";
 		hasLineInfo = state.toBoolean(-1);
 		state.setTop(0);
 		return hasLineInfo;
@@ -509,6 +509,8 @@ public class NodeFactoryHelper implements LuaExpressionConstants,
 		}
 
 		// Typical blocks do not have tags
+		assert typeName == null : "Node name should be undefined, " + typeName
+				+ "found instead.";
 		return LuaStatementConstants.S_BLOCK;
 	}
 
