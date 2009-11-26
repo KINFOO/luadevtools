@@ -28,7 +28,7 @@ import com.anwrt.metalua.MetaluaStateFactory;
 /**
  * All Lua tools for parsing Lua code are available from here.
  */
-public class NodeFactoryHelper implements LuaExpressionConstants,
+public class MetaluaASTWalker implements LuaExpressionConstants,
 		LuaStatementConstants {
 
 	/** The state. */
@@ -45,7 +45,7 @@ public class NodeFactoryHelper implements LuaExpressionConstants,
 	/**
 	 * Instantiates a new node factory helper.
 	 */
-	private NodeFactoryHelper() {
+	private MetaluaASTWalker() {
 		try {
 			state = MetaluaStateFactory.newLuaState();
 			URL url = Platform.getBundle(Activator.PLUGIN_ID).getEntry(
@@ -82,7 +82,7 @@ public class NodeFactoryHelper implements LuaExpressionConstants,
 	 * @param source
 	 *            the source
 	 */
-	public NodeFactoryHelper(final String source) {
+	public MetaluaASTWalker(final String source) {
 		/*
 		 * The aim here is to perform the following statement in Lua: ast =
 		 * mlc.luastring_to_ast('" + source + "')
@@ -145,7 +145,7 @@ public class NodeFactoryHelper implements LuaExpressionConstants,
 	 * @param sourceFile
 	 *            the source file
 	 */
-	public NodeFactoryHelper(final URL sourceFile) {
+	public MetaluaASTWalker(final URL sourceFile) {
 		this();
 		state.LdoString("ast = mlc.luafile_to_ast('" + sourceFile.getPath()
 				+ "')");
@@ -212,10 +212,10 @@ public class NodeFactoryHelper implements LuaExpressionConstants,
 
 	@Override
 	public boolean equals(Object o) {
-		if (!(o instanceof NodeFactoryHelper)) {
+		if (!(o instanceof MetaluaASTWalker)) {
 			return false;
 		}
-		NodeFactoryHelper node = (NodeFactoryHelper) o;
+		MetaluaASTWalker node = (MetaluaASTWalker) o;
 		return getSource().equals(node.getSource())
 				&& getComparator().equals(node.getComparator())
 				&& getState().equals(node.getState());
@@ -399,7 +399,7 @@ public class NodeFactoryHelper implements LuaExpressionConstants,
 		String name = null;
 
 		// Stack should be empty
-		assert state.getTop() == 0 : NodeFactoryHelper.class.toString()
+		assert state.getTop() == 0 : MetaluaASTWalker.class.toString()
 				+ ": Lua stack should be empty";
 
 		// Retrieve Lua function

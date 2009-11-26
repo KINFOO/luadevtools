@@ -10,12 +10,12 @@ import org.eclipse.dltk.ast.parser.ISourceParserFactory;
  */
 public class LuaSourceParserFactory implements ISourceParserFactory {
 
-    public LuaSourceParserFactory() {
-    }
+	public LuaSourceParserFactory() {
+	}
 
-    @Override
-    public ISourceParser createSourceParser() {
-	return new LuaSourceParser();
-    }
+	@Override
+	public ISourceParser createSourceParser() {
+		return new LuaSourceParser();
+	}
 
 }
