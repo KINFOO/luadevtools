@@ -18,34 +18,34 @@ import com.anwrt.ldt.internal.parser.NodeFactory;
  */
 public class LuaSourceParser extends AbstractSourceParser {
 
-    /**
-     * AST cache, allow to keep previous AST in mind when syntax errors occurs
-     */
-    private ModuleDeclaration _cache = null;
-
-    /**
-     * Provide DLTK compliant AST
-     * 
-     * @return {@link ModuleDeclaration}, in case of syntax errors, the previous
-     *         valid AST is given
-     * @see org.eclipse.dltk.ast.parser.ISourceParser#parse(char[], char[],
-     *      org.eclipse.dltk.compiler.problem.IProblemReporter)
-     */
-    @Override
-    public ModuleDeclaration parse(char[] fileName, char[] source,
-	    IProblemReporter reporter) {
-
-	// Analyze code
-	NodeFactory factory = new NodeFactory(new String(source));
-
-	/*
-	 * Keep older version of AST in case of syntax errors, when cache is
-	 * defined.
+	/**
+	 * AST cache, allow to keep previous AST in mind when syntax errors occurs
 	 */
-	if ((_cache == null) || (!factory.errorDetected())) {
-	    _cache = factory.getRoot();
+	private static ModuleDeclaration _cache = null;
+
+	/**
+	 * Provide DLTK compliant AST
+	 * 
+	 * @return {@link ModuleDeclaration}, in case of syntax errors, the previous
+	 *         valid AST is given
+	 * @see org.eclipse.dltk.ast.parser.ISourceParser#parse(char[], char[],
+	 *      org.eclipse.dltk.compiler.problem.IProblemReporter)
+	 */
+	@Override
+	public ModuleDeclaration parse(char[] fileName, char[] source,
+			IProblemReporter reporter) {
+
+		// Analyze code
+		NodeFactory factory = new NodeFactory(new String(source));
+
+		/*
+		 * Keep older version of AST in case of syntax errors, when cache is
+		 * defined.
+		 */
+		if ((_cache == null) || (!factory.errorDetected())) {
+			_cache = factory.getRoot();
+		}
+		return _cache;
 	}
-	return _cache;
-    }
 
 }
